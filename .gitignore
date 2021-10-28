@@ -1,0 +1,5 @@
+.prettierignore
+.DS_Store
+node_modules
+Assets
+requirements.md
