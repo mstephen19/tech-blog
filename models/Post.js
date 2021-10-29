@@ -34,13 +34,14 @@ Post.init(
         key: 'id',
       },
     },
-    comment_id: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'comment',
-        key: 'id',
-      },
-    },
+    // THIS IS BAD BAD BAD
+    // comment_id: {
+    //   type: DataTypes.INTEGER,
+    //   references: {
+    //     model: 'comment',
+    //     key: 'id',
+    //   },
+    // },
   },
   {
     hooks: {},

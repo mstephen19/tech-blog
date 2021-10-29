@@ -20,6 +20,15 @@ User.init(
         isEmail: true,
       },
     },
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        len: [8, 25],
+        isAlphanumeric: true,
+      },
+    },
     password: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -27,13 +36,14 @@ User.init(
         len: [8, 45],
       },
     },
-    post_id: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'post',
-        key: 'id',
-      },
-    },
+    // THIS IS BAD BAD BAD BAD BAD
+    // post_id: {
+    //   type: DataTypes.INTEGER,
+    //   references: {
+    //     model: 'post',
+    //     key: 'id',
+    //   },
+    // },
   },
   {
     hooks: {
