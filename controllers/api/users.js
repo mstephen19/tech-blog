@@ -31,6 +31,7 @@ router
 
       req.session.save(() => {
         req.session.loggedIn = true;
+        req.session.userId = created.dataValues.id;
 
         res.status(200).json({
           message: `Created user with username of ${created.username}`,
@@ -105,9 +106,10 @@ router.post('/login', async (req, res) => {
       res.status(400).json({ message: 'Wrong username/password! Try again' });
       return;
     }
-
+    console.log(userData.id);
     req.session.save(() => {
       req.session.loggedIn = true;
+      req.session.userId = userData.dataValues.id;
 
       res
         .status(200)
@@ -122,7 +124,7 @@ router.post('/login', async (req, res) => {
 router.post('/logout', async (req, res) => {
   if (req.session.loggedIn) {
     req.session.destroy(() => {
-      res.status(204).end();
+      res.status(204).redirect('/login');
     });
   } else {
     res.status(404).end();

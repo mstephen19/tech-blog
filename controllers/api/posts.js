@@ -106,3 +106,5 @@ router.post('/:id/comment', async (req, res) => {
 });
 
 module.exports = router;
+
+// to comment on a post, just pull the id from the parameter, then make a post request and add the comment to the usre with req.session.userId

@@ -1,0 +1,18 @@
+{{!-- if not logged in, they see "Log in to add a comment" --}}
+<div class="card" style="width: 100%">
+  <div class="card-body">
+    <h1 class="card-title">{{post.title}}</h1>
+    <h6 class="card-subtitle mb-2 text-muted">by {{post.user.username}}</h6>
+    <p class="card-text">{{post.description}}</p>
+    <br/>
+    <h5 class="card-title">Comments</h5>
+    {{#each post.comments}}
+    <div class="card">
+      <div class="card-body">
+        {{comment}}
+      </div>
+      <h6 class="card-subtitle mb-2 text-muted">- {{username}}</h6>
+    </div>
+    {{/each}}
+  </div>
+</div>

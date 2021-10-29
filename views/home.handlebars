@@ -1,4 +1,11 @@
-<h1>all posts go here</h1>
+<div class="container w-100 vh-100 d-flex flex-column justifyalign-items-center overflow-auto">
 {{#each posts as |post|}}
-<p>{{title}}</p>
+  {{> posts_card}}
 {{/each}}
+</div>
+
+{{!-- each post is clickable with a link of /post/POSTID --}}
+{{!-- then, on that page, the POSTID is parsed out in the frontend and used to fetch the post info --}}
+
+{{!-- if you have TIME!! --}}
+{{!-- on the post page, the user can click the user and see the user's profile --}}
