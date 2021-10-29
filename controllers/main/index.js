@@ -1,9 +1,12 @@
 const router = require('express').Router();
 
-router.get('/'), async (req, res) => {
+router.get('/login'),
+  async (req, res) => {
+    res.render('login');
+  };
 
-};
-
-// at the bottom create a wildcard that sends to a 404 if route doesn't exist
+router.get('/*', async (req, res) => {
+  res.render('404');
+});
 
 module.exports = router;

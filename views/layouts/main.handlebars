@@ -11,10 +11,10 @@
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    {{!-- <link rel="stylesheet" type="text/css" href="/css/style.css" /> --}}
   </head>
   <body class="bg-secondary">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark d-flex justify-content-sm-center fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark d-flex justify-content-sm-center">
       <div class ="container w-auto">
         <a class="navbar-brand" href="/">TheCodingForum</a>
       </div>
@@ -26,23 +26,25 @@
             <li class="nav-item active">
               <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
             </li>
-          {{#if loggedIn}}
+          {{!-- {{#if loggedIn}} --}}
             <li class="nav-item">
               <a class="nav-link" href="/dashboard">Dashboard</a>
             </li>
           </ul>
-          <button class="btn btn-danger">Log Out</button>
-          {{else}}
-          <button class="btn btn-primary">Log In</button>
-          {{/if}}
+          <a href="/logout"><button class="btn btn-danger">Log Out</button></a>
+          {{!-- {{else}} --}}
+          <a href="/login"><button class="btn btn-primary">Log In</button></a>
+          {{!-- {{/if}} --}}
         </div>
     </nav>
 
-    {{{body}}}
-    
+    <div id="mainContent">
+      {{{body}}}
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/js/script.js"></script>
+    <script type="text/javascript" src="/js/login.js"></script>
   </body>
 </html>
