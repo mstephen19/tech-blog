@@ -84,6 +84,12 @@ router
     }
   });
 
+// Log in
+router.post('/login', async (req, res) => {});
+
+// Log out
+router.post('logout', async (req, res) => {});
+
 // Create new post
 router.post('/:id/post', async (req, res) => {
   try {
