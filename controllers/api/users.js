@@ -6,7 +6,10 @@ router
   .get(async (req, res) => {
     try {
       const users = await User.findAll({
-        include: [{ model: Post }, { model: Comment }],
+        include: [
+          { model: Post, attributes: ['id', 'title', 'description'] },
+          { model: Comment, attributes: ['id', 'post_id', 'comment'] },
+        ],
       });
 
       !users ? res.status(404).send(new Error('Oops!')) : null;
@@ -37,7 +40,10 @@ router
   .get(async (req, res) => {
     try {
       const user = await User.findByPk(req.params.id, {
-        include: [{ model: Post }, { model: Comment }],
+        include: [
+          { model: Post, attributes: ['id', 'title', 'description'] },
+          { model: Comment, attributes: ['id', 'post_id', 'comment'] },
+        ],
       });
 
       !user ? res.status(404).send(new Error('Oops!')) : null;
@@ -78,13 +84,21 @@ router
     }
   });
 
+// Create new post
 router.post('/:id/post', async (req, res) => {
-  const newPost = await Post.create({
-    title: req.body.title,
-    description: req.body.description,
-    user_id: req.params.id,
-  });
-  res.status(200).json(newPost);
+  try {
+    const newPost = await Post.create({
+      title: req.body.title,
+      description: req.body.description,
+      user_id: req.params.id,
+    });
+
+    !newPost ? res.status(404).send(new Error('Oops!')) : null;
+
+    res.status(200).json(newPost);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 module.exports = router;
