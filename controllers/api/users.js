@@ -27,9 +27,15 @@ router
         password: req.body.password,
       });
 
-      !created ? res.status(404).send(new Error('Oops!')) : null;
+      !created ? res.status(400).send(new Error('Oops!')) : null;
 
-      res.status(200).json(created);
+      req.session.save(() => {
+        req.session.loggedIn = true;
+
+        res.status(200).json({
+          message: `Created user with username of ${created.username}`,
+        });
+      });
     } catch (err) {
       res.status(500).json(err);
     }
@@ -85,10 +91,43 @@ router
   });
 
 // Log in
-router.post('/login', async (req, res) => {});
+router.post('/login', async (req, res) => {
+  try {
+    const userData = await User.findOne({
+      where: {
+        username: req.body.username,
+      },
+    });
+
+    const isValid = await userData.checkPassword(req.body.password);
+
+    if (!userData || !isValid) {
+      res.status(400).json({ message: 'Wrong username/password! Try again' });
+      return;
+    }
+
+    req.session.save(() => {
+      req.session.loggedIn = true;
+
+      res
+        .status(200)
+        .json({ message: `Now logged in as ${userData.username}!` });
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 // Log out
-router.post('logout', async (req, res) => {});
+router.post('/logout', async (req, res) => {
+  if (req.session.loggedIn) {
+    req.session.destroy(() => {
+      res.status(204).end();
+    });
+  } else {
+    res.status(404).end();
+  }
+});
 
 // Create new post
 router.post('/:id/post', async (req, res) => {

@@ -1,5 +1,6 @@
+{{!-- {{#if loggedIn}} --}}
 <div class="container d-flex w-100 h-auto">
-  <div class="row w-100">
+  <div class="row w-100 d-flex justify-content-center">
     <div class="col-sm-12 col-lg-6 d-flex">
       <form id="signInForm">
         <h1>Sign In</h1>
@@ -37,8 +38,8 @@
         </div>
         <div class="mb-3">
           <label for="inputPassword3" class="form-label">Password confirm</label>
-          <input type="password" id="inputPassword2" class="form-control" aria-describedby="passwordHelpBlock">
-          <div id="passwordHelpBlock" class="form-text text-light">Please confirm the password you just typed.</div>
+          <input type="password" id="inputPassword3" class="form-control" aria-describedby="passwordHelpBlock3">
+          <div id="passwordHelpBlock3" class="form-text text-light">Please confirm the password you just typed.</div>
         </div>
         <button type="submit" class="btn btn-primary">Create account</button>
       </form>
@@ -46,3 +47,6 @@
   </div>
 </div>
 <script src="./login.js"></script>
+{{!-- {{else}}
+<h1>You are already logged in!</h1>
+{{/if}} --}}

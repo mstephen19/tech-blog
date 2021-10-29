@@ -30,7 +30,7 @@
               <a class="nav-link" href="/dashboard">Dashboard</a>
             </li>
           </ul>
-          <a href="/logout"><button class="btn btn-danger">Log Out</button></a>
+          <button id="logOut" class="btn btn-danger">Log Out</button>
           {{else}}
           <a href="/login"><button class="btn btn-primary">Log In</button></a>
           {{/if}}
@@ -40,7 +40,9 @@
     <div id="mainContent">
       {{{body}}}
     </div>
-
+    {{#if loggedIn}}
+    <script src="./logout.js"></script>
+    {{/if}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
