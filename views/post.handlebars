@@ -14,5 +14,20 @@
       <h6 class="card-subtitle mb-2 text-muted">- {{username}}</h6>
     </div>
     {{/each}}
+    {{#if loggedIn}}
+    <div id="commentAddContainer">
+      <label for="addComment" class="form-label">Add a comment:</label>
+      <textarea class="form-control" id="addComment" style="resize: none;"></textarea>
+      <button id="commentBtn" type="submit" class="btn btn-primary">Post!</button>
+    </div>
   </div>
 </div>
+    {{else}}
+    <h4><a href="/login">Log in</a> to leave a comment!</h4>
+  </div>
+</div>
+    {{/if}}
+
+    {{#if loggedIn}}
+<script src="./post.js"></script>
+    {{/if}}

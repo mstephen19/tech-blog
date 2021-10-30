@@ -101,12 +101,10 @@ router.post('/login', async (req, res) => {
     });
 
     const isValid = await userData.checkPassword(req.body.password);
-
     if (!userData || !isValid) {
       res.status(400).json({ message: 'Wrong username/password! Try again' });
       return;
     }
-    console.log(userData.id);
     req.session.save(() => {
       req.session.loggedIn = true;
       req.session.userId = userData.dataValues.id;

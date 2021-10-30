@@ -91,15 +91,20 @@ router
 // Comment on a post
 router.post('/:id/comment', async (req, res) => {
   try {
+    if (!req.session.loggedIn) {
+      res.status(400).end();
+      return;
+    }
+    console.log(req.body.comment);
     const newComment = Comment.create({
       comment: req.body.comment,
-      user_id: req.body.user_id,
+      user_id: req.session.userId,
       post_id: req.params.id,
     });
 
     !newComment ? res.status(404).send(new Error('Oops!')) : null;
 
-    res.status(200).json(newComment);
+    res.status(200).json('Added comment!');
   } catch (err) {
     res.status(500).json(err);
   }
