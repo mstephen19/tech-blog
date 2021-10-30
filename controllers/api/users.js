@@ -129,21 +129,22 @@ router.post('/logout', async (req, res) => {
   }
 });
 
-// Create new post
-router.post('/:id/post', async (req, res) => {
-  try {
-    const newPost = await Post.create({
-      title: req.body.title,
-      description: req.body.description,
-      user_id: req.params.id,
-    });
+// Not sure why I had this here
+// // Create new post
+// router.post('/:id/post', async (req, res) => {
+//   try {
+//     const newPost = await Post.create({
+//       title: req.body.title,
+//       description: req.body.description,
+//       user_id: req.params.id,
+//     });
 
-    !newPost ? res.status(404).send(new Error('Oops!')) : null;
+//     !newPost ? res.status(404).send(new Error('Oops!')) : null;
 
-    res.status(200).json(newPost);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+//     res.status(200).json(newPost);
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
 
 module.exports = router;

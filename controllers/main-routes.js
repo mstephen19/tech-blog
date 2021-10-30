@@ -49,16 +49,34 @@ router.get('/login', redirectIfLogged, async (req, res) => {
   res.render('login', { loggedIn: req.session.loggedIn });
 });
 
-// finish this later
 router.get('/dashboard', async (req, res) => {
-  if (!req.session.userId) {
-    res.redirect('/404');
+  try {
+    if (!req.session.userId) {
+      res.status(404).redirect('/login');
+    }
+    const postData = await Post.findAll({
+      where: {
+        user_id: req.session.userId,
+      },
+    });
+    // I know, this is some pretty messy logic
+    let hasPosts;
+    let posts;
+    if (postData.length === 0) {
+      hasPosts = false;
+    } else {
+      hasPosts = true;
+      posts = await postData.get({ plain: true });
+    }
+    res.render('dashboard', {
+      posts,
+      loggedIn: req.session.loggedIn,
+      userId: req.session.userId,
+      hasPosts,
+    });
+  } catch (err) {
+    res.status(418).json(err);
   }
-  const postData = await Post.findAll({
-    where: {
-      user_id: req.session.userId,
-    },
-  });
 });
 
 router.get('/zuzka', async (req, res) => {

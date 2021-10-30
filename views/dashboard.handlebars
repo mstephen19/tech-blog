@@ -1,0 +1,10 @@
+<div class="container w-100 vh-100 d-flex flex-column justifyalign-items-center overflow-auto">
+{{#if hasPosts}}
+{{#each posts as |post|}}
+  {{> posts_card}}
+{{/each}}
+{{else}}
+<h1>No posts yet!</h1>
+{{/if}}
+<button class="btn btn-success" style="position: fixed; bottom: 10px; right: 10px; font-size: 3rem">New Post</button>
+</div>
