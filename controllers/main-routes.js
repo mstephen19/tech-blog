@@ -19,32 +19,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-// router.get('/posts/:id', async (req, res) => {
-//   try {
-//     const postData = await Post.findByPk(req.params.id, {
-//       include: [
-//         { model: User, attributes: ['id', 'username'] },
-//         {
-//           model: Comment,
-//           attributes: ['id', 'comment', 'user_id'],
-//         },
-//       ],
-//     });
-//     const singlePost = await postData.get({ plain: true });
-//     for (let i = 0; i < singlePost.comments.length; i++) {
-//       const findUser = await User.findByPk(singlePost.comments[i].user_id);
-//       singlePost.comments[i].username = findUser.dataValues.username;
-//     }
-// res.render('post', {
-//   post: singlePost,
-//   loggedIn: req.session.loggedIn,
-//   userId: req.session.userId,
-// });
-//   } catch (err) {
-//     res.status(420).json(err);
-//   }
-// });
-
 router.get('/posts/:id', async (req, res) => {
   try {
     const postData = await Post.findByPk(req.params.id, {
@@ -61,7 +35,11 @@ router.get('/posts/:id', async (req, res) => {
       const findUser = await User.findByPk(singlePost.comments[i].user_id);
       singlePost.comments[i].username = findUser.dataValues.username;
     }
-    res.render('post', { post: singlePost, loggedIn: req.session.loggedIn });
+    res.render('post', {
+      post: singlePost,
+      loggedIn: req.session.loggedIn,
+      userId: req.session.userId,
+    });
   } catch (err) {
     res.status(420).json(err);
   }

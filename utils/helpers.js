@@ -1,7 +1,7 @@
 module.exports = {
-  mapPlainTrue: async (dataObject) => {
-    return await dataObject.map((obj) => {
-      return obj.get({ plain: true });
-    });
+  ifEquals: function (arg1, arg2, options) {
+    return arg1 == arg2 ? options.fn(this) : options.inverse(this);
   },
 };
+
+//stupid handlebars

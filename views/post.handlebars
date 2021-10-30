@@ -12,6 +12,9 @@
         {{comment}}
       </div>
       <h6 class="card-subtitle mb-2 text-muted">- {{username}}</h6>
+      {{!-- {{#ifEquals comment.user_id userId}}
+      <button class="btn btn-danger" style="width: 10%; min-width: 75px; position: relative; top: -45px; right: -85%">Delete</button>
+      {{/ifEquals}} --}}
     </div>
     {{/each}}
     {{#if loggedIn}}
@@ -29,5 +32,5 @@
     {{/if}}
 
     {{#if loggedIn}}
-<script src="./post.js"></script>
+<script src="/post.js"></script>
     {{/if}}
