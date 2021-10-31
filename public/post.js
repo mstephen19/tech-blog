@@ -16,7 +16,12 @@ const handleComment = async (e) => {
     headers: { 'Content-Type': 'application/json' },
   });
 
-  response.ok ? document.location.reload() : alert('Failed. Try again.');
+  if (response.ok) {
+    document.location.reload();
+    return;
+  }
+
+  alert('Failed. Try again.');
 };
 
 document.querySelector('#commentBtn').addEventListener('click', handleComment);

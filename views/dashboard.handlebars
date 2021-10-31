@@ -1,10 +1,16 @@
 <div class="container w-100 vh-100 d-flex flex-column justifyalign-items-center overflow-auto">
+  <header class="w-100 d-flex justify-content-evenly align-items-center">
+    <h1>{{user.username}}</h1>
+    {{#if hasPosts}}
+    <h2>You have {{posts.length}} post(s)</h2>
+    {{/if}}
+  </header>
 {{#if hasPosts}}
 {{#each posts as |post|}}
   {{> posts_card}}
 {{/each}}
 {{else}}
-<h1>No posts yet!</h1>
+<h3>No posts yet!</h3>
 {{/if}}
 <a href="/dashboard/new"><button class="btn btn-success" style="position: fixed; bottom: 10px; right: 10px; font-size: 3rem">New Post</button></a>
 </div>

@@ -27,7 +27,7 @@ router.post('/', async (req, res) => {
     });
 
     console.log(req.session.userId);
-
+    res.redirect('back');
     res.status(200).json(added);
   } catch (err) {
     res.status(500).json(err);

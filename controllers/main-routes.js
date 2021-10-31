@@ -59,23 +59,14 @@ router.get('/dashboard', async (req, res) => {
     });
 
     const user = await userData.get({ plain: true });
-    // const postsPlainTrue = await postData.get({ plain: true });
     let hasPosts = true;
 
     if (user.posts.length === 0) {
       hasPosts = false;
     }
-    // console.log(hasPosts);
-    // console.log(user.posts);
-    // HUGE BUG HERE - FIX IMMEDIATELY
-    // let hasPosts = false;
-    // let posts;
-    // if (postData.length > 0) {
-    //   hasPosts = true;
-    //   posts = postsPlainTrue;
-    // }
 
     res.render('dashboard', {
+      user,
       posts: user.posts,
       loggedIn: req.session.loggedIn,
       userId: req.session.userId,
