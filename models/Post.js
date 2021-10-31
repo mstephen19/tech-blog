@@ -25,6 +25,10 @@ Post.init(
         len: [1, 1000],
       },
     },
+    date: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
     user_id: {
       type: DataTypes.INTEGER,
       references: {

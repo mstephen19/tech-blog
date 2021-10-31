@@ -26,7 +26,7 @@ router.get('/posts/:id', async (req, res) => {
         { model: User, attributes: ['id', 'username'] },
         {
           model: Comment,
-          attributes: ['id', 'comment', 'user_id'],
+          attributes: ['id', 'comment', 'user_id', 'date'],
         },
       ],
     });
@@ -35,6 +35,7 @@ router.get('/posts/:id', async (req, res) => {
       const findUser = await User.findByPk(singlePost.comments[i].user_id);
       singlePost.comments[i].username = findUser.dataValues.username;
     }
+    console.log(singlePost);
     res.render('post', {
       post: singlePost,
       loggedIn: req.session.loggedIn,

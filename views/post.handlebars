@@ -2,6 +2,7 @@
 <div class="card" style="width: 100%">
   <div class="card-body">
     <h1 class="card-title">{{post.title}}</h1>
+    <p>Posted on: {{format_time post.date}}</p>
     <h6 class="card-subtitle mb-2 text-muted">by {{post.user.username}}</h6>
     <p class="card-text">{{post.description}}</p>
     <br/>
@@ -12,6 +13,7 @@
         {{comment}}
       </div>
       <h6 class="card-subtitle mb-2 text-muted">- {{username}}</h6>
+      <p>Posted on: {{format_time date}}</p>
       {{!-- {{#ifEquals comment.user_id userId}}
       <button class="btn btn-danger" style="width: 10%; min-width: 75px; position: relative; top: -45px; right: -85%">Delete</button>
       {{/ifEquals}} --}}

@@ -1,12 +1,13 @@
 const router = require('express').Router();
 const { User, Post, Comment } = require('../../models');
+const date = new Date();
 
 router.route('/').get(async (req, res) => {
   try {
     const posts = await Post.findAll({
       include: [
         { model: User, attributes: ['id', 'username'] },
-        { model: Comment, attributes: ['id', 'comment', 'user_id'] },
+        { model: Comment, attributes: ['id', 'comment', 'user_id', 'date'] },
       ],
     });
 
@@ -24,6 +25,7 @@ router.post('/', async (req, res) => {
       title: req.body.title,
       description: req.body.description,
       user_id: req.session.userId,
+      date: date.toDateString(),
     });
 
     console.log(req.session.userId);
@@ -103,6 +105,7 @@ router.post('/:id/comment', async (req, res) => {
       comment: req.body.comment,
       user_id: req.session.userId,
       post_id: req.params.id,
+      date: date.toDateString(),
     });
 
     !newComment ? res.status(404).send(new Error('Oops!')) : null;
