@@ -87,6 +87,19 @@ router.get('/dashboard/new', async (req, res) => {
   });
 });
 
+router.get('/dashboard/edit/:id', async (req, res) => {
+  if (!req.session.userId) {
+    res.status(404).redirect('/login');
+  }
+  const postData = await Post.findByPk(req.params.id);
+  const post = await postData.get({ plain: true });
+  res.render('editPost', {
+    post,
+    userId: req.session.userId,
+    loggedIn: req.session.loggedIn,
+  });
+});
+
 router.get('/zuzka', async (req, res) => {
   res.render('zuzka', { loggedIn: req.session.loggedIn });
 });

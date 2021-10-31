@@ -7,8 +7,9 @@
   </header>
 {{#if hasPosts}}
 {{#each posts as |post|}}
+<div class="d-flex"></div>
   {{> posts_card}}
-  <h1>Edit Post</h1>
+  <a href="/dashboard/edit/{{id}}" style="width: 50px; position: relative; top: -15%; left: 70%; z-index: 999"><button class="btn btn-warning">Edit</button></a>
 {{/each}}
 {{else}}
 <h3>No posts yet!</h3>

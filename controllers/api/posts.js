@@ -53,29 +53,6 @@ router
       res.status(500).json(err);
     }
   })
-  // Will probably never change user_id, but it is an option
-  .put(async (req, res) => {
-    try {
-      const updated = await Post.update(
-        {
-          user_id: req.body.user_id,
-          title: req.body.title,
-          description: req.body.description,
-        },
-        {
-          where: {
-            id: req.params.id,
-          },
-        }
-      );
-
-      !updated ? res.status(404).send(new Error('Oops!')) : null;
-
-      res.status(200).json(updated);
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  })
   .delete(async (req, res) => {
     try {
       const deleted = await Post.destroy({ where: { id: req.params.id } });
@@ -87,6 +64,32 @@ router
       res.status(500).json(err);
     }
   });
+// Will probably never change user_id, but it is an option
+router.put('/:id', async (req, res) => {
+  try {
+    console.log(req.params.id);
+    console.log(req.session.userId);
+    console.log(req.body);
+    const updated = await Post.update(
+      {
+        title: req.body.title,
+        description: req.body.description,
+        user_id: req.session.userId,
+      },
+      {
+        where: {
+          id: req.params.id,
+        },
+      }
+    );
+
+    // !updated ? res.status(404).send(new Error('Oops!')) : null;
+
+    res.status(200).json(updated);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 // Comment on a post
 router.post('/:id/comment', async (req, res) => {
