@@ -15,15 +15,13 @@ Post.init(
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notEmpty: true,
-        len: [1, 25],
+        len: [1, 40],
       },
     },
     description: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notEmpty: true,
         len: [1, 1000],
       },
     },

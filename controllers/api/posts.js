@@ -1,39 +1,39 @@
 const router = require('express').Router();
 const { User, Post, Comment } = require('../../models');
 
-router
-  .route('/')
-  .get(async (req, res) => {
-    try {
-      const posts = await Post.findAll({
-        include: [
-          { model: User, attributes: ['id', 'username'] },
-          { model: Comment, attributes: ['id', 'comment', 'user_id'] },
-        ],
-      });
+router.route('/').get(async (req, res) => {
+  try {
+    const posts = await Post.findAll({
+      include: [
+        { model: User, attributes: ['id', 'username'] },
+        { model: Comment, attributes: ['id', 'comment', 'user_id'] },
+      ],
+    });
 
-      !posts ? res.status(404).json(new Error('Oops!')) : null;
+    !posts ? res.status(404).json(new Error('Oops!')) : null;
 
-      res.status(200).json(posts);
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  })
-  .post(async (req, res) => {
-    try {
-      const added = await Post.create({
-        user_id: req.body.user_id,
-        title: req.body.title,
-        description: req.body.description,
-      });
+    res.status(200).json(posts);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
-      !added ? res.status(404).json(new Error('Oops!')) : null;
+router.post('/', async (req, res) => {
+  try {
+    const added = await Post.create({
+      title: req.body.title,
+      description: req.body.description,
+      user_id: req.session.userId,
+    });
 
-      res.status(200).json(added);
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  });
+    console.log(req.session.userId);
+
+    res.status(200).json(added);
+  } catch (err) {
+    res.status(500).json(err);
+    console.error(err);
+  }
+});
 
 router
   .route('/:id')

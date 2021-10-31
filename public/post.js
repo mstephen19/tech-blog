@@ -20,5 +20,3 @@ const handleComment = async (e) => {
 };
 
 document.querySelector('#commentBtn').addEventListener('click', handleComment);
-
-console.log('helloooooo');

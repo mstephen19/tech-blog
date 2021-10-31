@@ -54,22 +54,29 @@ router.get('/dashboard', async (req, res) => {
     if (!req.session.userId) {
       res.status(404).redirect('/login');
     }
-    const postData = await Post.findAll({
-      where: {
-        user_id: req.session.userId,
-      },
+    const userData = await User.findByPk(req.session.userId, {
+      include: [{ model: Post }],
     });
-    // I know, this is some pretty messy logic
-    let hasPosts;
-    let posts;
-    if (postData.length === 0) {
+
+    const user = await userData.get({ plain: true });
+    // const postsPlainTrue = await postData.get({ plain: true });
+    let hasPosts = true;
+
+    if (user.posts.length === 0) {
       hasPosts = false;
-    } else {
-      hasPosts = true;
-      posts = await postData.get({ plain: true });
     }
+    // console.log(hasPosts);
+    // console.log(user.posts);
+    // HUGE BUG HERE - FIX IMMEDIATELY
+    // let hasPosts = false;
+    // let posts;
+    // if (postData.length > 0) {
+    //   hasPosts = true;
+    //   posts = postsPlainTrue;
+    // }
+
     res.render('dashboard', {
-      posts,
+      posts: user.posts,
       loggedIn: req.session.loggedIn,
       userId: req.session.userId,
       hasPosts,
@@ -77,6 +84,16 @@ router.get('/dashboard', async (req, res) => {
   } catch (err) {
     res.status(418).json(err);
   }
+});
+
+router.get('/dashboard/new', async (req, res) => {
+  if (!req.session.userId) {
+    res.status(404).redirect('/login');
+  }
+  res.render('new_post', {
+    loggedIn: req.session.loggedIn,
+    userId: req.session.userId,
+  });
 });
 
 router.get('/zuzka', async (req, res) => {
