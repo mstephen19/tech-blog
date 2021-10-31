@@ -29,7 +29,7 @@ User.init(
       allowNull: false,
       unique: true,
       validate: {
-        len: [8, 25],
+        len: [2, 25],
         isAlphanumeric: true,
       },
     },
